@@ -1,0 +1,36 @@
+{
+    "name": "graychen/yii2-gii-rest",
+    "description": "This is a resutful API creator for yii2",
+    "type": "library",
+    "require": {
+        "yiisoft/yii2": "2.0.15.1",
+        "yiisoft/yii2-gii": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "陈家辉",
+            "email": "chenjiahui@haolianluo.com"
+        }
+    ],
+    "minimum-stability": "stable",
+     "autoload": {
+        "psr-4": {
+            "graychen\\yii2\\queue\\backend\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "graychen\\yii2\\queue\\backend\\tests\\": "tests"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
