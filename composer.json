@@ -19,12 +19,12 @@
     "minimum-stability": "stable",
      "autoload": {
         "psr-4": {
-            "graychen\\yii2\\queue\\backend\\": "src"
+            "graychen\\yii2\\gii\\rest\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "graychen\\yii2\\queue\\backend\\tests\\": "tests"
+            "graychen\\yii2\\gii\\rest\\tests\\": "tests"
         }
     },
     "repositories": [
