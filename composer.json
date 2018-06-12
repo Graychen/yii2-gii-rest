@@ -19,7 +19,7 @@
     "minimum-stability": "stable",
      "autoload": {
         "psr-4": {
-            "graychen\\yii2\\gii\\rest\\": "src"
+            "graychen\\yii2\\gii\\rest\\": "src/rest"
         }
     },
     "autoload-dev": {
