@@ -29,7 +29,7 @@ class Generator extends \yii\gii\Generator
     public $modelClass;
     public $controllerClass;
     public $viewPath;
-    public $baseControllerClass = 'yii\web\Controller';
+    public $baseControllerClass = 'yii\rest\ActiveController';
     public $indexWidgetType = 'grid';
     public $searchModelClass = '';
     /**
@@ -166,18 +166,6 @@ class Generator extends \yii\gii\Generator
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
             $files[] = new CodeFile($searchModel, $this->render('search.php'));
         }
-
-        $viewPath = $this->getViewPath();
-        $templatePath = $this->getTemplatePath() . '/views';
-        foreach (scandir($templatePath) as $file) {
-            if (empty($this->searchModelClass) && $file === '_search.php') {
-                continue;
-            }
-            if (is_file($templatePath . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
-                $files[] = new CodeFile("$viewPath/$file", $this->render("views/$file"));
-            }
-        }
-
         return $files;
     }
 
@@ -190,18 +178,6 @@ class Generator extends \yii\gii\Generator
         $class = substr(substr($this->controllerClass, $pos + 1), 0, -10);
 
         return Inflector::camel2id($class);
-    }
-
-    /**
-     * @return string the controller view path
-     */
-    public function getViewPath()
-    {
-        if (empty($this->viewPath)) {
-            return Yii::getAlias('@app/views/' . $this->getControllerID());
-        }
-
-        return Yii::getAlias(str_replace('\\', '/', $this->viewPath));
     }
 
     /**
