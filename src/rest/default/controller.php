@@ -45,19 +45,11 @@ use yii\filters\VerbFilter;
  */
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
+    public $modelClass = '<?= ltrim($generator->modelClass, '\\') ?>';
+
+    public function actions()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
+       return [];
     }
 
     /**
@@ -93,9 +85,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionView(<?= $actionParams ?>)
     {
-        return $this->render('view', [
-            'model' => $this->findModel(<?= $actionParams ?>),
-        ]);
+        return $this->findModel(<?= $actionParams ?>),
     }
 
     /**
@@ -107,13 +97,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     {
         $model = new <?= $modelClass ?>();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', <?= $urlParams ?>]);
+        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '') && $model->save()) {
+          $response = Yii::$app->getResponse();
+          $response->setStatusCode(201);
+        } elseif (!$model->hasErrors()) {
+          throw new yii\web\ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $model;
     }
 
     /**
@@ -145,9 +135,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionDelete(<?= $actionParams ?>)
     {
-        $this->findModel(<?= $actionParams ?>)->delete();
-
-        return $this->redirect(['index']);
+        $model = new <?= $modelClass ?>();
+        if ($this->findModel(<?= $actionParams ?>)->delete()) {
+            Yii::$app->getResponse()->setStatusCode(204);
+        } elseif (!$model->hasErrors()) {
+            throw new ServerErrorHttpException('Failed to delete the object for unknown reason.');
+        }
+        return $model;
     }
 
     /**
@@ -174,6 +168,6 @@ if (count($pks) === 1) {
             return $model;
         }
 
-        throw new NotFoundHttpException(<?= $generator->generateString('The requested page does not exist.') ?>);
+        throw new NotFoundHttpException(<?= $generator->generateString('The requested patient does not exist.') ?>);
     }
 }
