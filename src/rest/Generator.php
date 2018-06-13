@@ -29,7 +29,7 @@ class Generator extends \yii\gii\Generator
     public $modelClass;
     public $controllerClass;
     public $viewPath;
-    public $baseControllerClass = 'yii\web\Controller';
+    public $baseControllerClass = 'yii\rest\ActiveController';
     public $indexWidgetType = 'grid';
     public $searchModelClass = '';
     /**
