@@ -32,6 +32,7 @@ class Generator extends \yii\gii\Generator
     public $baseControllerClass = 'yii\rest\ActiveController';
     public $indexWidgetType = 'grid';
     public $searchModelClass = '';
+    public $apiConfig='api\modules\v1\config\rules';
     /**
      * @var bool whether to wrap the `GridView` or `ListView` widget with the `yii\widgets\Pjax` widget
      * @since 2.0.5
@@ -165,6 +166,10 @@ class Generator extends \yii\gii\Generator
         if (!empty($this->searchModelClass)) {
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
             $files[] = new CodeFile($searchModel, $this->render('search.php'));
+        }
+        if (!empty($this->apiConfig)){
+            $apiConfigFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->apiConfig, '\\')) . '.php');
+            $files[] = new CodeFile($apiConfigFile, $this->render('rules.php'));
         }
         return $files;
     }
