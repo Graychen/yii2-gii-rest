@@ -166,7 +166,7 @@ class UserController extends ActiveController
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested patient does not exist.');
+        throw new NotFoundHttpException('The requested User does not exist.');
     }
 }
 ```
