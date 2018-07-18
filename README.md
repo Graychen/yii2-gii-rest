@@ -43,3 +43,8 @@ if (!YII_ENV_TEST) {
 
 return $config;
 ```
+
+
+## Screen Shoot
+
+![](http://ww1.sinaimg.cn/large/675eb504gy1fte8s7yw7sj21sq0x2n2i.jpg)
