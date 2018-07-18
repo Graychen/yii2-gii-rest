@@ -159,6 +159,6 @@ if (count($pks) === 1) {
             return $model;
         }
 
-        throw new NotFoundHttpException(<?= $generator->generateString('The requested patient does not exist.') ?>);
+        throw new NotFoundHttpException(<?= $generator->generateString('The requested '.$modelClass.' does not exist.') ?>);
     }
 }
