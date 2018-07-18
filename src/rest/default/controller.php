@@ -48,7 +48,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 
     public function actions()
     {
-       return [];
+        return [];
     }
 
     /**
