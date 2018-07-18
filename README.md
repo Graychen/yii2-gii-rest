@@ -47,8 +47,7 @@ return $config;
 
 ## Screen Shoot
 
-![](http://ww1.sinaimg.cn/large/675eb504gy1fte8s7yw7sj21sq0x2n2i.jpg)
-
+![](http://ww1.sinaimg.cn/large/675eb504gy1fte92a9g41j21r80xo0yj.jpg)
 
 ## Code Demo
 
