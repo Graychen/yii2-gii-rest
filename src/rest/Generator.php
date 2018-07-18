@@ -45,7 +45,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getName()
     {
-        return 'restful api Generator';
+        return 'REST Generator';
     }
 
     /**
@@ -167,10 +167,12 @@ class Generator extends \yii\gii\Generator
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
             $files[] = new CodeFile($searchModel, $this->render('search.php'));
         }
+        /*
         if (!empty($this->apiConfig)){
             $apiConfigFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->apiConfig, '\\')) . '.php');
             $files[] = new CodeFile($apiConfigFile, $this->render('rules.php'));
         }
+        */
         return $files;
     }
 
@@ -421,7 +423,7 @@ class Generator extends \yii\gii\Generator
                     break;
                 default:
                     $likeKeyword = $this->getClassDbDriverName() === 'pgsql' ? 'ilike' : 'like';
-                    $likeConditions[] = "->andFilterWhere(['{$likeKeyword}', '{$column}', \$this->{$column}])";                    
+                    $likeConditions[] = "->andFilterWhere(['{$likeKeyword}', '{$column}', \$this->{$column}])";
                     break;
             }
         }
