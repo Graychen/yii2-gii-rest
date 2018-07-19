@@ -123,13 +123,11 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionDelete(<?= $actionParams ?>)
     {
-        $model = new <?= $modelClass ?>();
-        if ($this->findModel(<?= $actionParams ?>)->delete()) {
-            Yii::$app->getResponse()->setStatusCode(204);
-        } elseif (!$model->hasErrors()) {
+        $model = $this->findModel(<?= $actionParams ?>);
+        if ($model->delete() === false) {
             throw new ServerErrorHttpException('Failed to delete the object for unknown reason.');
         }
-        return $model;
+        Yii::$app->getResponse()->setStatusCode(204);
     }
 
     /**
