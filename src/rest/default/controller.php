@@ -38,6 +38,7 @@ use yii\data\ActiveDataProvider;
 <?php endif; ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -92,7 +93,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             $response = Yii::$app->getResponse();
             $response->setStatusCode(201);
         } elseif (!$model->hasErrors()) {
-            throw new yii\web\ServerErrorHttpException('Failed to create the object for unknown reason.');
+            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
         return $model;
     }
