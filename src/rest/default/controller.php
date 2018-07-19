@@ -107,7 +107,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     public function actionUpdate(<?= $actionParams ?>)
     {
         $model = $this->findModel(<?= $actionParams ?>);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->getBodyParams()) && $model->save()) {
             Yii::$app->response->setStatusCode(200);
         } elseif (!$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to update the object for unknown reason.');
