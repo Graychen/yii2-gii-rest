@@ -38,7 +38,6 @@ use yii\data\ActiveDataProvider;
 <?php endif; ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -49,7 +48,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 
     public function actions()
     {
-       return [];
+        return [];
     }
 
     /**
@@ -80,7 +79,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionView(<?= $actionParams ?>)
     {
-        return $this->findModel(<?= $actionParams ?>),
+        return $this->findModel(<?= $actionParams ?>);
     }
 
     /**
@@ -90,12 +89,11 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     public function actionCreate()
     {
         $model = new <?= $modelClass ?>();
-
         if ($model->load(Yii::$app->getRequest()->getBodyParams(), '') && $model->save()) {
-          $response = Yii::$app->getResponse();
-          $response->setStatusCode(201);
+            $response = Yii::$app->getResponse();
+            $response->setStatusCode(201);
         } elseif (!$model->hasErrors()) {
-          throw new yii\web\ServerErrorHttpException('Failed to create the object for unknown reason.');
+            throw new yii\web\ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
         return $model;
     }
@@ -109,14 +107,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     public function actionUpdate(<?= $actionParams ?>)
     {
         $model = $this->findModel(<?= $actionParams ?>);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->response->setStatusCode(200);
         } elseif (!$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to update the object for unknown reason.');
         }
-            return $model;
-     }
+        return $model;
+    }
 
     /**
      * Deletes an existing <?= $modelClass ?> model.
@@ -159,6 +156,6 @@ if (count($pks) === 1) {
             return $model;
         }
 
-        throw new NotFoundHttpException(<?= $generator->generateString('The requested patient does not exist.') ?>);
+        throw new NotFoundHttpException(<?= $generator->generateString('The requested '.$modelClass.' does not exist.') ?>);
     }
 }

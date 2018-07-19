@@ -30,12 +30,12 @@ echo "* REST URL config\n";
 echo "*/\n";
 echo "return [
     [
-        'class' => 'yii\rest\UrlRule',
+        'class' => 'yii\\rest\UrlRule',
         'controller' => 'v1/default',
         'only' => ['index'],
     ],
     [
-        'class' => 'yii\rest\UrlRule',
+        'class' => 'yii\\rest\UrlRule',
         'controller' => 'v1/$controllerName',
     ]
 ]";
