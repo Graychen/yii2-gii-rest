@@ -66,7 +66,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $dataProvider = new ActiveDataProvider([
             'query' => <?= $modelClass ?>::find(),
         ]);
-
         return $dataProvider;
 <?php endif; ?>
     }
@@ -153,7 +152,6 @@ if (count($pks) === 1) {
         if (($model = <?= $modelClass ?>::findOne(<?= $condition ?>)) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException(<?= $generator->generateString('The requested '.$modelClass.' does not exist.') ?>);
     }
 }
