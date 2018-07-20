@@ -38,6 +38,7 @@ use yii\data\ActiveDataProvider;
 <?php endif; ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -66,7 +67,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $dataProvider = new ActiveDataProvider([
             'query' => <?= $modelClass ?>::find(),
         ]);
-
         return $dataProvider;
 <?php endif; ?>
     }
@@ -93,7 +93,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             $response = Yii::$app->getResponse();
             $response->setStatusCode(201);
         } elseif (!$model->hasErrors()) {
-            throw new yii\web\ServerErrorHttpException('Failed to create the object for unknown reason.');
+            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
         return $model;
     }
@@ -107,7 +107,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     public function actionUpdate(<?= $actionParams ?>)
     {
         $model = $this->findModel(<?= $actionParams ?>);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->getBodyParams(), '') && $model->save()) {
             Yii::$app->response->setStatusCode(200);
         } elseif (!$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to update the object for unknown reason.');
@@ -123,13 +123,11 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionDelete(<?= $actionParams ?>)
     {
-        $model = new <?= $modelClass ?>();
-        if ($this->findModel(<?= $actionParams ?>)->delete()) {
-            Yii::$app->getResponse()->setStatusCode(204);
-        } elseif (!$model->hasErrors()) {
+        $model = $this->findModel(<?= $actionParams ?>);
+        if ($model->delete() === false) {
             throw new ServerErrorHttpException('Failed to delete the object for unknown reason.');
         }
-        return $model;
+        Yii::$app->getResponse()->setStatusCode(204);
     }
 
     /**
@@ -155,7 +153,6 @@ if (count($pks) === 1) {
         if (($model = <?= $modelClass ?>::findOne(<?= $condition ?>)) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException(<?= $generator->generateString('The requested '.$modelClass.' does not exist.') ?>);
     }
 }
