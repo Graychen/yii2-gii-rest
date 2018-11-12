@@ -38,7 +38,7 @@ use yii\data\ActiveDataProvider;
 <?php endif; ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
-use yii\web\ServerErrorHttpException
+use yii\web\ServerErrorHttpException;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
